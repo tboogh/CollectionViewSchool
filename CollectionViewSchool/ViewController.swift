@@ -44,7 +44,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         var snapShot = ModelDataSourceSnapshot()
         snapShot.appendSections([.main])
-        let models = (0...30).map { Model(id: $0) }
+        let models = (0...30).map { index in Model(id: index, heightChangeAction: { [collectionViewLayout, collectionView] size in
+            collectionViewLayout.resizeElement(
+                atIndexPath: IndexPath(item: index, section: 0),
+                toSize: CGSize(width: collectionView.bounds.size.width, height: size))
+        }) }
         snapShot.appendItems(models, toSection: .main)
         dataSource.apply(snapShot)
     }

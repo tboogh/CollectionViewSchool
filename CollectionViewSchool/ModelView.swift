@@ -5,14 +5,31 @@ struct ModelView: View {
     @ObservedObject var model: Model
     
     var body: some View {
-        Text("Model: \(model.id)")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack {
+            Button {
+                model.makeBiggler()
+            } label: {
+                Image(systemName: "plus")
+            }
+            .padding()
+            .contentShape(Rectangle())
+            Text("Model: \(model.id)")
+            Button {
+                model.makeSmaller()
+            } label: {
+                Image(systemName: "minus")
+            }
+            .padding()
+            .contentShape(Rectangle())
+        }
+        .frame(height: model.height)
+        .frame(maxWidth: .infinity)
             .background(model.color)
     }
 }
 
 #Preview {
-    ModelView(model: Model(id: 321))
+    ModelView(model: Model(id: 321, heightChangeAction: { _ in }))
 }
 
 enum BackgroundColor: CaseIterable {
