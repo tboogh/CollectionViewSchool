@@ -17,6 +17,8 @@
 		14A3BF992C1C70D900915DD3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A3BF982C1C70D900915DD3 /* Model.swift */; };
 		14A3BF9B2C1C719300915DD3 /* ModelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A3BF9A2C1C719300915DD3 /* ModelCollectionViewCell.swift */; };
 		14A3BF9D2C1C71AF00915DD3 /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A3BF9C2C1C71AF00915DD3 /* ModelView.swift */; };
+		14DEC7E62C1F604800E5852E /* CollectionViewLayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC7E52C1F604300E5852E /* CollectionViewLayoutDelegate.swift */; };
+		14DEC7E82C1F616C00E5852E /* SupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC7E72C1F616700E5852E /* SupplementaryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		14A3BF982C1C70D900915DD3 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		14A3BF9A2C1C719300915DD3 /* ModelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCollectionViewCell.swift; sourceTree = "<group>"; };
 		14A3BF9C2C1C71AF00915DD3 /* ModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelView.swift; sourceTree = "<group>"; };
+		14DEC7E52C1F604300E5852E /* CollectionViewLayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutDelegate.swift; sourceTree = "<group>"; };
+		14DEC7E72C1F616700E5852E /* SupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,17 +68,19 @@
 		14A3BF812C1C6F2400915DD3 /* CollectionViewSchool */ = {
 			isa = PBXGroup;
 			children = (
-				14A3BF822C1C6F2400915DD3 /* AppDelegate.swift */,
-				14A3BF842C1C6F2400915DD3 /* SceneDelegate.swift */,
-				14A3BF862C1C6F2400915DD3 /* ViewController.swift */,
-				14A3BF882C1C6F2400915DD3 /* Main.storyboard */,
-				14A3BF8B2C1C6F2900915DD3 /* Assets.xcassets */,
-				14A3BF8D2C1C6F2900915DD3 /* LaunchScreen.storyboard */,
 				14A3BF902C1C6F2900915DD3 /* Info.plist */,
+				14A3BF822C1C6F2400915DD3 /* AppDelegate.swift */,
 				14A3BF962C1C6F7100915DD3 /* CollectionViewLayout.swift */,
+				14DEC7E52C1F604300E5852E /* CollectionViewLayoutDelegate.swift */,
 				14A3BF982C1C70D900915DD3 /* Model.swift */,
 				14A3BF9A2C1C719300915DD3 /* ModelCollectionViewCell.swift */,
 				14A3BF9C2C1C71AF00915DD3 /* ModelView.swift */,
+				14A3BF842C1C6F2400915DD3 /* SceneDelegate.swift */,
+				14DEC7E72C1F616700E5852E /* SupplementaryView.swift */,
+				14A3BF862C1C6F2400915DD3 /* ViewController.swift */,
+				14A3BF8B2C1C6F2900915DD3 /* Assets.xcassets */,
+				14A3BF8D2C1C6F2900915DD3 /* LaunchScreen.storyboard */,
+				14A3BF882C1C6F2400915DD3 /* Main.storyboard */,
 			);
 			path = CollectionViewSchool;
 			sourceTree = "<group>";
@@ -151,7 +157,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				14A3BF992C1C70D900915DD3 /* Model.swift in Sources */,
+				14DEC7E62C1F604800E5852E /* CollectionViewLayoutDelegate.swift in Sources */,
 				14A3BF872C1C6F2400915DD3 /* ViewController.swift in Sources */,
+				14DEC7E82C1F616C00E5852E /* SupplementaryView.swift in Sources */,
 				14A3BF9B2C1C719300915DD3 /* ModelCollectionViewCell.swift in Sources */,
 				14A3BF832C1C6F2400915DD3 /* AppDelegate.swift in Sources */,
 				14A3BF972C1C6F7100915DD3 /* CollectionViewLayout.swift in Sources */,

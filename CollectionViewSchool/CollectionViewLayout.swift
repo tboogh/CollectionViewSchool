@@ -12,7 +12,9 @@ class CollectionViewLayout: UICollectionViewLayout {
     override class var invalidationContextClass: AnyClass { InvalidationContext.self }
     
     private var layoutAttributes: [UICollectionViewLayoutAttributes] = []
+    private var supplementaryLayoutAttributes: [Int: UICollectionViewLayoutAttributes] = [:]
     private var cachedSize: CGSize = .zero
+    var delegate: CollectionViewLayoutDelegate?
     
     override func prepare() {
         guard 
@@ -33,6 +35,12 @@ class CollectionViewLayout: UICollectionViewLayout {
                 attribute.frame = CGRect(x: 0, y: currentHeight, width: defaultSize.width, height: defaultSize.height)
                 currentHeight += defaultSize.height
                 newAttributes.append(attribute)
+                if let elementKind = delegate?.supplementaryKind(forIndexPath: indexPath) {
+                    let supplementaryAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
+                    supplementaryAttributes.frame = CGRect(x: 0, y: attribute.frame.minY, width: 50, height: 50)
+                    supplementaryAttributes.zIndex = 9999
+                    supplementaryLayoutAttributes[indexPath.item] = supplementaryAttributes
+                }
             }
         }
         self.layoutAttributes = newAttributes
@@ -42,15 +50,25 @@ class CollectionViewLayout: UICollectionViewLayout {
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        layoutAttributes.reduce(into: [UICollectionViewLayoutAttributes]()) { partialResult, attributes in
+        let itemAttributes = layoutAttributes.reduce(into: [UICollectionViewLayoutAttributes]()) { partialResult, attributes in
             if attributes.frame.intersects(rect) {
                 partialResult.append(attributes)
             }
         }
+        let supplementaryAttributes = supplementaryLayoutAttributes.values.reduce(into: [UICollectionViewLayoutAttributes]()) { partialResult, attributes in
+            if attributes.frame.intersects(rect) {
+                partialResult.append(attributes)
+            }
+        }
+        return itemAttributes + supplementaryAttributes
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         layoutAttributes[indexPath.item]
+    }
+    
+    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        supplementaryLayoutAttributes[indexPath.item]
     }
     
     override var collectionViewContentSize: CGSize {

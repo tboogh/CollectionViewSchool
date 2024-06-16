@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CollectionViewLayoutDelegate {
     
     enum Section: Int {
         
@@ -12,16 +12,24 @@ class ViewController: UIViewController {
     typealias ModelDataSourceSnapshot = NSDiffableDataSourceSnapshot<Section, Model>
     
     private lazy var dataSource: ModelDataSource = {
-        ModelDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        let dataSource = ModelDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             collectionView.dequeueConfiguredReusableCell(using: self.cellRegistration, for: indexPath, item: itemIdentifier)
         }
+        dataSource.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+            collectionView.dequeueConfiguredReusableSupplementary(using: self.supplementaryViewRegistration, for: indexPath)
+        }
+        return dataSource
     }()
     
     typealias ModelCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, Model>
+    typealias SupplementaryViewRegistration = UICollectionView.SupplementaryRegistration<SupplementaryView>
     private let cellRegistration = ModelCellRegistration { cell, indexPath, model in
         cell.contentConfiguration = UIHostingConfiguration(content: {
             ModelView(model: model)
         })
+    }
+    private let supplementaryViewRegistration = SupplementaryViewRegistration(elementKind: "SupplemetaryKind") { supplementaryView, elementKind, indexPath in
+        supplementaryView.backgroundColor = .red
     }
     
     private lazy var collectionView: UICollectionView = {
@@ -42,6 +50,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionViewLayout.delegate = self
         var snapShot = ModelDataSourceSnapshot()
         snapShot.appendSections([.main])
         let models = (0...30).map { index in Model(id: index, heightChangeAction: { [collectionViewLayout, collectionView] size in
@@ -51,6 +60,13 @@ class ViewController: UIViewController {
         }) }
         snapShot.appendItems(models, toSection: .main)
         dataSource.apply(snapShot)
+    }
+    
+    func supplementaryKind(forIndexPath indexPath: IndexPath) -> String? {
+        if indexPath.item % 3 == 0 {
+            return "SupplemetaryKind"
+        }
+        return nil
     }
 }
 
